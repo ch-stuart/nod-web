@@ -1,0 +1,8 @@
+node_modules/
+src/images/screenshots/shot.avif
+src/images/screenshots/shot.webp
+src/images/screenshots/shot.png
+src/images/app-icon/icon.avif
+src/images/app-icon/icon.webp
+src/images/app-icon/icon.png
+.DS_Store

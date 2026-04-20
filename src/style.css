@@ -1,0 +1,242 @@
+:root {
+  --color-bg: #0a0a0a;
+  --color-text: #f0eeeb;
+  --color-muted: #888;
+  --color-focus: #f0eeeb;
+  --width-content: 640px;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 6rem;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-sm);
+  background: var(--color-text);
+  color: var(--color-bg);
+  padding: var(--space-xs) var(--space-sm);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  text-decoration: none;
+  z-index: 100;
+  border-radius: 0 0 4px 4px;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Base */
+html {
+  background-color: var(--color-bg);
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in srgb, #8cabc2 20%, var(--color-bg)),
+    color-mix(in srgb, #ab85ad 19%, var(--color-bg)),
+    color-mix(in srgb, #c57564 16%, var(--color-bg)),
+    color-mix(in srgb, #4d362e 22%, var(--color-bg))
+  );
+  background-attachment: fixed;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-md) var(--space-sm);
+}
+
+/* Focus */
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Header */
+header {
+  width: 100%;
+  max-width: var(--width-content);
+  margin-block-end: var(--space-xl);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.app-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  display: block;
+}
+
+.wordmark {
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+}
+
+/* Main */
+main {
+  width: 100%;
+  max-width: var(--width-content);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+h1 {
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.hero-sub {
+  font-size: 1.125rem;
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
+/* Screenshot */
+.screenshot {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.screenshot img {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  border-radius: 28px;
+  display: block;
+}
+
+/* CTA */
+.cta {
+  padding-block-end: var(--space-md);
+}
+
+.app-store-link {
+  display: inline-block;
+  background: none;
+  cursor: pointer;
+  color: var(--color-text);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: 1px solid color-mix(in srgb, var(--color-text) 30%, transparent);
+  padding: 0.625rem 1.25rem;
+  border-radius: 6px;
+  transition: border-color 0.15s ease;
+}
+
+.app-store-link:hover {
+  border-color: color-mix(in srgb, var(--color-text) 60%, transparent);
+}
+
+/* Coming soon dialog */
+dialog {
+  background: color-mix(in srgb, var(--color-bg) 90%, var(--color-text));
+  color: var(--color-text);
+  border: 1px solid color-mix(in srgb, var(--color-text) 20%, transparent);
+  border-radius: 12px;
+  padding: var(--space-md);
+  max-width: 320px;
+  width: calc(100% - var(--space-md));
+  font-family: var(--font-sans);
+  position: fixed;
+  inset: 0;
+  margin: auto;
+}
+
+dialog::backdrop {
+  background: color-mix(in srgb, var(--color-bg) 75%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+dialog p {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-block-end: var(--space-md);
+}
+
+dialog form {
+  display: flex;
+  justify-content: flex-end;
+}
+
+dialog form button {
+  background: none;
+  cursor: pointer;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border: 1px solid color-mix(in srgb, var(--color-text) 30%, transparent);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: border-color 0.15s ease;
+}
+
+dialog form button:hover {
+  border-color: color-mix(in srgb, var(--color-text) 60%, transparent);
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  max-width: var(--width-content);
+  margin-block-start: var(--space-xl);
+}
+
+footer p {
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  :root {
+    --space-lg: 3rem;
+    --space-xl: 4rem;
+  }
+
+  .screenshot img {
+    max-width: 240px;
+  }
+}

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Nod — sleep noise, nothing else. A minimal noise app for iPhone."
+    />
+    <title>Nod — Sleep Noise</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header>
+      <div class="brand">
+        <picture>
+          <source srcset="./images/app-icon/icon.avif" type="image/avif" />
+          <source srcset="./images/app-icon/icon.webp" type="image/webp" />
+          <img
+            src="./images/app-icon/icon.png"
+            alt=""
+            width="32"
+            height="32"
+            class="app-icon"
+          />
+        </picture>
+        <span class="wordmark">Nod</span>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <h1>Sleep noise, nothing else.</h1>
+        <p class="hero-sub">
+          Nod gives you a continuous range of noise — from bright and airy to
+          warm and dark. Find the sound that helps you sleep, then let it run
+          all night.
+        </p>
+      </section>
+
+      <section class="screenshot" aria-label="App screenshot">
+        <picture>
+          <source srcset="./images/screenshots/shot.avif" type="image/avif" />
+          <source srcset="./images/screenshots/shot.webp" type="image/webp" />
+          <img
+            src="./images/screenshots/shot.png"
+            alt="Nod app showing a single dot on a dark grid. Drag the dot to explore the noise spectrum."
+            width="320"
+            height="693"
+            loading="eager"
+          />
+        </picture>
+      </section>
+
+      <section class="cta">
+        <button
+          class="app-store-link"
+          onclick="document.getElementById('coming-soon-dialog').showModal()"
+        >
+          Download on the App Store
+        </button>
+      </section>
+    </main>
+
+    <dialog id="coming-soon-dialog" aria-labelledby="dialog-title">
+      <p id="dialog-title">Coming soon to the App Store :)</p>
+      <form method="dialog">
+        <button autofocus>Got it</button>
+      </form>
+    </dialog>
+
+    <footer>
+      <p>&copy; 2026 Charles Stuart</p>
+    </footer>
+  </body>
+</html>
