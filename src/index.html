@@ -12,6 +12,34 @@
     <link rel="icon" type="image/webp" href="./images/app-icon/icon.webp" />
     <link rel="icon" type="image/png" href="./images/app-icon/icon.png" />
     <link rel="stylesheet" href="./style.css" />
+    <script type="module">
+      const container = document.getElementById("grid-player");
+      const dot = document.getElementById("grid-dot");
+
+      // Position dot at default (0.75, 0.75) matching iOS app default
+      requestAnimationFrame(() => {
+        const w = container.clientWidth,
+          h = container.clientHeight;
+        const minX = 5,
+          maxX = w - 45,
+          minY = 44,
+          maxY = h - 55;
+        dot.style.transform = `translate(${minX + 0.75 * (maxX - minX)}px, ${minY + 0.75 * (maxY - minY)}px)`;
+      });
+
+      // Load audio engine on first interaction.
+      // AudioContext must be created and resumed synchronously within the user
+      // gesture — iOS Safari blocks audio if creation happens after an await.
+      container.addEventListener("pointerdown", function handleFirst(e) {
+        container.removeEventListener("pointerdown", handleFirst);
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        const audioContext = new AudioCtx();
+        audioContext.resume();
+        import("./grid-player.ts").then(({ mount }) =>
+          mount(dot, container, e, audioContext),
+        );
+      });
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -43,19 +71,20 @@
         </p>
       </section>
 
-      <section class="screenshot" aria-label="App screenshot">
-        <picture>
-          <source srcset="./images/screenshots/shot.avif" type="image/avif" />
-          <source srcset="./images/screenshots/shot.webp" type="image/webp" />
-          <img
-            src="./images/screenshots/shot.png"
-            alt="Nod app showing a single dot on a dark grid. Drag the dot to explore the noise spectrum."
-            width="720"
-            height="1457"
-            loading="eager"
-            fetchpriority="high"
-          />
-        </picture>
+      <section class="screenshot" aria-label="Interactive noise player">
+        <div class="device-frame">
+          <div
+            class="grid-player"
+            id="grid-player"
+            role="button"
+            aria-pressed="false"
+            aria-label="Nod noise player — tap to play, drag to explore"
+            tabindex="0"
+          >
+            <div class="device-notch" aria-hidden="true"></div>
+            <div class="grid-dot" id="grid-dot"></div>
+          </div>
+        </div>
       </section>
 
       <section class="cta">
@@ -68,7 +97,7 @@
             alt="Download on the App Store"
             width="165"
             height="55"
-          >
+          />
         </button>
       </section>
     </main>

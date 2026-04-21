@@ -26,6 +26,8 @@ Located at ~/Code/sleep-noise-ios. Reference the CLAUDE.md at ~/Code/sleep-noise
 - Use pnpm
 - Use CSS vars as design tokens
 - Leverage modern web platform features
+- All selectors should be single token class selectors, e.g. `.foo { font-weight: bold; }`
+- Use CSS Modules. Split CSS into separate files as needed.
 
 ## Images
 
