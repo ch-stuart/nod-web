@@ -152,21 +152,16 @@ h1 {
 .app-store-link {
   display: inline-block;
   background: none;
+  border: none;
+  padding: 0;
   cursor: pointer;
-  color: var(--color-text);
-  text-decoration: none;
-  font-family: var(--font-sans);
-  font-size: 0.9375rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  border: 1px solid color-mix(in srgb, var(--color-text) 30%, transparent);
-  padding: 0.625rem 1.25rem;
-  border-radius: 6px;
-  transition: border-color 0.15s ease;
+  line-height: 0;
 }
 
-.app-store-link:hover {
-  border-color: color-mix(in srgb, var(--color-text) 60%, transparent);
+.app-store-link img {
+  display: block;
+  height: 55px;
+  width: auto;
 }
 
 /* Coming soon dialog */
