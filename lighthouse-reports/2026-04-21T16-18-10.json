@@ -1,0 +1,150 @@
+{
+  "timestamp": "2026-04-21T16:18:10.938Z",
+  "url": "https://ch-stuart.github.io/nod-web/",
+  "scores": {
+    "performance": 0.99,
+    "accessibility": 1,
+    "best-practices": 1,
+    "seo": 1
+  },
+  "issues": [
+    {
+      "id": "uses-responsive-images",
+      "category": "performance",
+      "score": 0,
+      "title": "Properly size images",
+      "description": "Serve images that are appropriately-sized to save cellular data and improve load time.",
+      "displayValue": "Est savings of 20 KiB",
+      "items": [
+        {
+          "node": {
+            "type": "node",
+            "lhId": "1-7-IMG",
+            "path": "1,HTML,1,BODY,2,MAIN,1,SECTION,0,PICTURE,2,IMG",
+            "selector": "main#main > section.screenshot > picture > img",
+            "boundingRect": {
+              "top": 345,
+              "bottom": 831,
+              "left": 16,
+              "right": 256,
+              "width": 240,
+              "height": 485
+            },
+            "snippet": "<img src=\"https://ch-stuart.github.io/nod-web/assets/shot-CLk9XL2W.avif\" alt=\"Nod app showing a single dot on a dark grid. Drag the dot to explore the n…\" width=\"840\" height=\"1699\" loading=\"eager\" fetchpriority=\"high\">",
+            "nodeLabel": "Nod app showing a single dot on a dark grid. Drag the dot to explore the noise …"
+          },
+          "url": "https://ch-stuart.github.io/nod-web/assets/shot-CLk9XL2W.avif",
+          "totalBytes": 27657,
+          "wastedBytes": 20749,
+          "wastedPercent": 75.02207180694526
+        }
+      ]
+    },
+    {
+      "id": "uses-long-cache-ttl",
+      "category": "performance",
+      "score": 0.5,
+      "title": "Serve static assets with an efficient cache policy",
+      "description": "A long cache lifetime can speed up repeat visits to your page.",
+      "displayValue": "1 resource found",
+      "items": [
+        {
+          "url": "https://ch-stuart.github.io/nod-web/assets/shot-CLk9XL2W.avif",
+          "debugData": {
+            "type": "debugdata",
+            "max-age": 600
+          },
+          "cacheLifetimeMs": 600000,
+          "cacheHitProbability": 0.08333333333333333,
+          "totalBytes": 27837,
+          "wastedBytes": 25517.25
+        }
+      ]
+    },
+    {
+      "id": "cache-insight",
+      "category": "performance",
+      "score": 0.5,
+      "title": "Use efficient cache lifetimes",
+      "description": "A long cache lifetime can speed up repeat visits to your page.",
+      "displayValue": "Est savings of 25 KiB",
+      "items": [
+        {
+          "url": "https://ch-stuart.github.io/nod-web/assets/shot-CLk9XL2W.avif",
+          "cacheLifetimeMs": 600000,
+          "totalBytes": 27837,
+          "wastedBytes": 25517.25
+        }
+      ]
+    },
+    {
+      "id": "image-delivery-insight",
+      "category": "performance",
+      "score": 0.5,
+      "title": "Improve image delivery",
+      "description": "Reducing the download time of images can improve the perceived load time of the page and LCP.",
+      "displayValue": "Est savings of 25 KiB",
+      "items": [
+        {
+          "url": "https://ch-stuart.github.io/nod-web/assets/shot-CLk9XL2W.avif",
+          "totalBytes": 27657,
+          "wastedBytes": 25399,
+          "subItems": {
+            "type": "subitems",
+            "items": [
+              {
+                "reason": "This image file is larger than it needs to be (840x1699) for its displayed dimensions (240x485). Use responsive images to reduce the image download size.",
+                "wastedBytes": 25399
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "max-potential-fid",
+      "category": "performance",
+      "score": 0.56,
+      "title": "Max Potential First Input Delay",
+      "description": "The maximum potential First Input Delay that your users could experience is the duration of the longest task.",
+      "displayValue": "230 ms",
+      "items": []
+    },
+    {
+      "id": "speed-index",
+      "category": "performance",
+      "score": 0.95,
+      "title": "Speed Index",
+      "description": "Speed Index shows how quickly the contents of a page are visibly populated.",
+      "displayValue": "2.8 s",
+      "items": []
+    },
+    {
+      "id": "cumulative-layout-shift",
+      "category": "performance",
+      "score": 0.97,
+      "title": "Cumulative Layout Shift",
+      "description": "Cumulative Layout Shift measures the movement of visible elements within the viewport.",
+      "displayValue": "0.061",
+      "items": [
+        {
+          "cumulativeLayoutShiftMainFrame": 0.06147365028520722,
+          "newEngineResult": {
+            "cumulativeLayoutShift": 0.06147365028520722,
+            "cumulativeLayoutShiftMainFrame": 0.06147365028520722
+          },
+          "newEngineResultDiffered": false
+        }
+      ]
+    },
+    {
+      "id": "first-contentful-paint",
+      "category": "performance",
+      "score": 0.99,
+      "title": "First Contentful Paint",
+      "description": "First Contentful Paint marks the time at which the first text or image is painted.",
+      "displayValue": "1.1 s",
+      "items": []
+    }
+  ]
+}

@@ -11,10 +11,11 @@ Located at ~/Code/sleep-noise-ios. Reference the CLAUDE.md at ~/Code/sleep-noise
 - `pnpm dev` — start dev server
 - `pnpm build` — generate `docs/` (runs screenshot conversion first)
 - `pnpm preview` — preview the built output locally
+- `pnpm lighthouse` — audit production URL; saves compact JSON report to `lighthouse-reports/`
 
 ## Technical Requirements
 
-- Heavily prioritize performance and score 100% on web performance tests
+- Heavily prioritize performance and score 99 or above on Lighthouse tests: Performance, Accessibility, Best Practices and SEO
 - Use Vite to build static website which will be hosted by Github Pages
 - Configure Vite build `outDir` to point at 'docs'
 - Set Vite `base` to `'./'` so asset paths are relative — works with both a GitHub Pages subdirectory URL and a custom domain

@@ -2,7 +2,7 @@ import sharp from 'sharp'
 import { resolve } from 'path'
 
 const images = [
-  { dir: resolve('src/images/screenshots'), out: 'shot', avif: { quality: 75 }, webp: { quality: 85 }, png: { palette: true, quality: 90, effort: 10 } },
+  { dir: resolve('src/images/screenshots'), out: 'shot', resize: { width: 720 }, avif: { quality: 75 }, webp: { quality: 85 }, png: { palette: true, quality: 90, effort: 10 } },
   { dir: resolve('src/images/app-icon'),    out: 'icon', avif: { quality: 80 }, webp: { quality: 90 }, png: { palette: true, quality: 95, effort: 10 } },
 ]
 
@@ -10,12 +10,13 @@ function imagePlugin() {
   return {
     name: 'image-formats',
     async buildStart() {
-      await Promise.all(images.flatMap(({ dir, out, avif, webp, png }) => {
-        const src = resolve(dir, 'original.png')
+      await Promise.all(images.flatMap(({ dir, out, resize, avif, webp, png }) => {
+        const src = sharp(resolve(dir, 'original.png'))
+        const s = resize ? src.resize(resize) : src
         return [
-          sharp(src).avif(avif).toFile(resolve(dir, `${out}.avif`)),
-          sharp(src).webp(webp).toFile(resolve(dir, `${out}.webp`)),
-          sharp(src).png(png).toFile(resolve(dir, `${out}.png`)),
+          s.clone().avif(avif).toFile(resolve(dir, `${out}.avif`)),
+          s.clone().webp(webp).toFile(resolve(dir, `${out}.webp`)),
+          s.clone().png(png).toFile(resolve(dir, `${out}.png`)),
         ]
       }))
     },

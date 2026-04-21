@@ -1,0 +1,100 @@
+{
+  "timestamp": "2026-04-21T16:21:43.734Z",
+  "url": "https://ch-stuart.github.io/nod-web/",
+  "scores": {
+    "performance": 1,
+    "accessibility": 1,
+    "best-practices": 1,
+    "seo": 1
+  },
+  "issues": [
+    {
+      "id": "cache-insight",
+      "category": "performance",
+      "score": 0,
+      "title": "Use efficient cache lifetimes",
+      "description": "A long cache lifetime can speed up repeat visits to your page.",
+      "displayValue": "Est savings of 16 KiB",
+      "items": [
+        {
+          "url": "https://ch-stuart.github.io/nod-web/assets/shot-CR5pvu3H.avif",
+          "cacheLifetimeMs": 600000,
+          "totalBytes": 17444,
+          "wastedBytes": 15990.333333333332
+        }
+      ]
+    },
+    {
+      "id": "image-delivery-insight",
+      "category": "performance",
+      "score": 0,
+      "title": "Improve image delivery",
+      "description": "Reducing the download time of images can improve the perceived load time of the page and LCP.",
+      "displayValue": "Est savings of 15 KiB",
+      "items": [
+        {
+          "url": "https://ch-stuart.github.io/nod-web/assets/shot-CR5pvu3H.avif",
+          "totalBytes": 17288,
+          "wastedBytes": 15367,
+          "subItems": {
+            "type": "subitems",
+            "items": [
+              {
+                "reason": "This image file is larger than it needs to be (720x1457) for its displayed dimensions (240x486). Use responsive images to reduce the image download size.",
+                "wastedBytes": 15367
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "uses-long-cache-ttl",
+      "category": "performance",
+      "score": 0.5,
+      "title": "Serve static assets with an efficient cache policy",
+      "description": "A long cache lifetime can speed up repeat visits to your page.",
+      "displayValue": "1 resource found",
+      "items": [
+        {
+          "url": "https://ch-stuart.github.io/nod-web/assets/shot-CR5pvu3H.avif",
+          "debugData": {
+            "type": "debugdata",
+            "max-age": 600
+          },
+          "cacheLifetimeMs": 600000,
+          "cacheHitProbability": 0.08333333333333333,
+          "totalBytes": 17444,
+          "wastedBytes": 15990.333333333332
+        }
+      ]
+    },
+    {
+      "id": "max-potential-fid",
+      "category": "performance",
+      "score": 0.73,
+      "title": "Max Potential First Input Delay",
+      "description": "The maximum potential First Input Delay that your users could experience is the duration of the longest task.",
+      "displayValue": "180 ms",
+      "items": []
+    },
+    {
+      "id": "first-contentful-paint",
+      "category": "performance",
+      "score": 0.99,
+      "title": "First Contentful Paint",
+      "description": "First Contentful Paint marks the time at which the first text or image is painted.",
+      "displayValue": "1.1 s",
+      "items": []
+    },
+    {
+      "id": "speed-index",
+      "category": "performance",
+      "score": 0.99,
+      "title": "Speed Index",
+      "description": "Speed Index shows how quickly the contents of a page are visibly populated.",
+      "displayValue": "2.0 s",
+      "items": []
+    }
+  ]
+}

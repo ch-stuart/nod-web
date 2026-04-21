@@ -1,0 +1,196 @@
+{
+  "timestamp": "2026-04-21T16:06:13.064Z",
+  "url": "https://ch-stuart.github.io/nod-web/",
+  "scores": {
+    "performance": 0.99,
+    "accessibility": 1,
+    "best-practices": 0.96,
+    "seo": 1
+  },
+  "issues": [
+    {
+      "id": "errors-in-console",
+      "category": "best-practices",
+      "score": 0,
+      "title": "Browser errors were logged to the console",
+      "description": "Errors logged to the console indicate unresolved problems. They can come from network request failures and other browser concerns.",
+      "displayValue": null,
+      "items": [
+        {
+          "source": "network",
+          "description": "Failed to load resource: the server responded with a status of 404 ()",
+          "sourceLocation": {
+            "type": "source-location",
+            "url": "https://ch-stuart.github.io/favicon.ico",
+            "urlProvider": "network",
+            "line": 0,
+            "column": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "uses-responsive-images",
+      "category": "performance",
+      "score": 0,
+      "title": "Properly size images",
+      "description": "Serve images that are appropriately-sized to save cellular data and improve load time.",
+      "displayValue": "Est savings of 67 KiB",
+      "items": [
+        {
+          "node": {
+            "type": "node",
+            "lhId": "1-7-IMG",
+            "path": "1,HTML,1,BODY,2,MAIN,1,SECTION,0,PICTURE,2,IMG",
+            "selector": "main#main > section.screenshot > picture > img",
+            "boundingRect": {
+              "top": 345,
+              "bottom": 831,
+              "left": 16,
+              "right": 256,
+              "width": 240,
+              "height": 486
+            },
+            "snippet": "<img src=\"https://ch-stuart.github.io/nod-web/assets/shot-BWtVLUdm.avif\" alt=\"Nod app showing a single dot on a dark grid. Drag the dot to explore the n…\" width=\"320\" height=\"693\" loading=\"eager\">",
+            "nodeLabel": "Nod app showing a single dot on a dark grid. Drag the dot to explore the noise …"
+          },
+          "url": "https://ch-stuart.github.io/nod-web/assets/shot-BWtVLUdm.avif",
+          "totalBytes": 78785,
+          "wastedBytes": 68623,
+          "wastedPercent": 87.10149166422931
+        }
+      ]
+    },
+    {
+      "id": "cache-insight",
+      "category": "performance",
+      "score": 0,
+      "title": "Use efficient cache lifetimes",
+      "description": "A long cache lifetime can speed up repeat visits to your page.",
+      "displayValue": "Est savings of 71 KiB",
+      "items": [
+        {
+          "url": "https://ch-stuart.github.io/nod-web/assets/shot-BWtVLUdm.avif",
+          "cacheLifetimeMs": 600000,
+          "totalBytes": 78995,
+          "wastedBytes": 72412.08333333333
+        }
+      ]
+    },
+    {
+      "id": "image-delivery-insight",
+      "category": "performance",
+      "score": 0,
+      "title": "Improve image delivery",
+      "description": "Reducing the download time of images can improve the perceived load time of the page and LCP.",
+      "displayValue": "Est savings of 74 KiB",
+      "items": [
+        {
+          "url": "https://ch-stuart.github.io/nod-web/assets/shot-BWtVLUdm.avif",
+          "totalBytes": 78785,
+          "wastedBytes": 75470,
+          "subItems": {
+            "type": "subitems",
+            "items": [
+              {
+                "reason": "This image file is larger than it needs to be (1170x2367) for its displayed dimensions (240x486). Use responsive images to reduce the image download size.",
+                "wastedBytes": 75470
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "lcp-discovery-insight",
+      "category": "performance",
+      "score": 0,
+      "title": "LCP request discovery",
+      "description": "Optimize LCP by making the LCP image [discoverable](https://web.dev/articles/optimize-lcp#1_eliminate_resource_load_delay) from the HTML immediately, and [avoiding lazy-loading](https://web.dev/articles/lcp-lazy-loading)",
+      "displayValue": null,
+      "items": [
+        {
+          "type": "checklist",
+          "items": {
+            "priorityHinted": {
+              "label": "fetchpriority=high should be applied",
+              "value": false
+            },
+            "requestDiscoverable": {
+              "label": "Request is discoverable in initial document",
+              "value": true
+            },
+            "eagerlyLoaded": {
+              "label": "lazy load not applied",
+              "value": true
+            }
+          }
+        },
+        {
+          "type": "node",
+          "lhId": "page-0-IMG",
+          "path": "1,HTML,1,BODY,2,MAIN,1,SECTION,0,PICTURE,2,IMG",
+          "selector": "main#main > section.screenshot > picture > img",
+          "boundingRect": {
+            "top": 345,
+            "bottom": 831,
+            "left": 16,
+            "right": 256,
+            "width": 240,
+            "height": 486
+          },
+          "snippet": "<img src=\"https://ch-stuart.github.io/nod-web/assets/shot-BWtVLUdm.avif\" alt=\"Nod app showing a single dot on a dark grid. Drag the dot to explore the n…\" width=\"320\" height=\"693\" loading=\"eager\">",
+          "nodeLabel": "Nod app showing a single dot on a dark grid. Drag the dot to explore the noise …"
+        }
+      ]
+    },
+    {
+      "id": "uses-long-cache-ttl",
+      "category": "performance",
+      "score": 0.5,
+      "title": "Serve static assets with an efficient cache policy",
+      "description": "A long cache lifetime can speed up repeat visits to your page.",
+      "displayValue": "1 resource found",
+      "items": [
+        {
+          "url": "https://ch-stuart.github.io/nod-web/assets/shot-BWtVLUdm.avif",
+          "debugData": {
+            "type": "debugdata",
+            "max-age": 600
+          },
+          "cacheLifetimeMs": 600000,
+          "cacheHitProbability": 0.08333333333333333,
+          "totalBytes": 78995,
+          "wastedBytes": 72412.08333333333
+        }
+      ]
+    },
+    {
+      "id": "speed-index",
+      "category": "performance",
+      "score": 0.97,
+      "title": "Speed Index",
+      "description": "Speed Index shows how quickly the contents of a page are visibly populated.",
+      "displayValue": "2.6 s",
+      "items": []
+    },
+    {
+      "id": "cumulative-layout-shift",
+      "category": "performance",
+      "score": 0.97,
+      "title": "Cumulative Layout Shift",
+      "description": "Cumulative Layout Shift measures the movement of visible elements within the viewport.",
+      "displayValue": "0.061",
+      "items": [
+        {
+          "cumulativeLayoutShiftMainFrame": 0.06148750149555893,
+          "newEngineResult": {
+            "cumulativeLayoutShift": 0.06148750149555893,
+            "cumulativeLayoutShiftMainFrame": 0.06148750149555893
+          },
+          "newEngineResultDiffered": false
+        }
+      ]
+    }
+  ]
+}
