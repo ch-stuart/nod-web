@@ -1,5 +1,5 @@
 import { makeWhite, makeGrey, makePink, makeBrown } from './noise-gen.js';
- 
+
 // Audio graph:
 // src[0..3] → gains[0..3] ─┐
 //                            ├→ hp → lp → master → destination
@@ -13,6 +13,7 @@ export class GridEngine {
   private lp: BiquadFilterNode;
   private master: GainNode;
 
+  private streamDest: MediaStreamAudioDestinationNode;
   private sources: AudioBufferSourceNode[] = [];
   private cachedBuffers: AudioBuffer[] = [];
 
@@ -45,14 +46,23 @@ export class GridEngine {
     this.master = this.ctx.createGain();
     this.master.gain.value = 0;
 
-    for (const g of this.gains) g.connect(this.hp);
+    // Route through MediaStreamDestinationNode so the <audio> element can play
+    // the output — this promotes the iOS audio session to "playback" category,
+    // which bypasses the ringer/mute switch.
+    this.streamDest = this.ctx.createMediaStreamDestination();
+
+    for (const gain of this.gains) gain.connect(this.hp);
     this.hp.connect(this.lp);
     this.lp.connect(this.master);
-    this.master.connect(this.ctx.destination);
+    this.master.connect(this.streamDest);
+  }
+
+  get stream(): MediaStream {
+    return this.streamDest.stream;
   }
 
   // Must be called from a user-gesture handler so ctx.resume() is permitted
-  async start(x: number, y: number) {
+  async start(normalizedX: number, normalizedY: number) {
     await this.ctx.resume();
 
     if (this.cachedBuffers.length === 0) {
@@ -64,20 +74,20 @@ export class GridEngine {
       ];
     }
 
-    this.sources = this.cachedBuffers.map((buf, i) => {
-      const src = this.ctx.createBufferSource();
-      src.buffer = buf;
-      src.loop = true;
-      src.connect(this.gains[i]);
-      src.start();
-      return src;
+    this.sources = this.cachedBuffers.map((buffer, index) => {
+      const source = this.ctx.createBufferSource();
+      source.buffer = buffer;
+      source.loop = true;
+      source.connect(this.gains[index]);
+      source.start();
+      return source;
     });
 
     // Snap parameters to current position, then fade master in from silence
-    this.setPosition(x, y);
-    for (let i = 0; i < 4; i++) {
-      this.currentGains[i] = this.targetGains[i];
-      this.gains[i].gain.value = this.currentGains[i];
+    this.setPosition(normalizedX, normalizedY);
+    for (let index = 0; index < 4; index++) {
+      this.currentGains[index] = this.targetGains[index];
+      this.gains[index].gain.value = this.currentGains[index];
     }
     this.currentHP = this.targetHP;
     this.currentLP = this.targetLP;
@@ -91,21 +101,21 @@ export class GridEngine {
 
   stop() {
     cancelAnimationFrame(this.rafId);
-    for (const src of this.sources) {
-      try { src.stop(); } catch { /* already stopped */ }
+    for (const source of this.sources) {
+      try { source.stop(); } catch { /* already stopped */ }
     }
     this.sources = [];
     this.ctx.suspend();
   }
 
-  setPosition(x: number, y: number) {
-    const yBiased = Math.pow(y, 0.65);
+  setPosition(normalizedX: number, normalizedY: number) {
+    const yBiased = Math.pow(normalizedY, 0.65);
     const centers = [0, 1 / 3, 2 / 3, 1];
-    for (let i = 0; i < 4; i++) {
-      this.targetGains[i] = Math.max(0, 1 - Math.abs(yBiased - centers[i]) * 3);
+    for (let index = 0; index < 4; index++) {
+      this.targetGains[index] = Math.max(0, 1 - Math.abs(yBiased - centers[index]) * 3);
     }
-    this.targetHP = x < 0.2 ? this.logInterp(150, 20, x / 0.2) : 20;
-    this.targetLP = x > 0.2 ? this.logInterp(22050, 350, (x - 0.2) / 0.8) : 22050;
+    this.targetHP = normalizedX < 0.2 ? this.logInterp(150, 20, normalizedX / 0.2) : 20;
+    this.targetLP = normalizedX > 0.2 ? this.logInterp(22050, 350, (normalizedX - 0.2) / 0.8) : 22050;
   }
 
   private tick = () => {
@@ -116,9 +126,9 @@ export class GridEngine {
     }
 
     const alpha = 0.08;
-    for (let i = 0; i < 4; i++) {
-      this.currentGains[i] += (this.targetGains[i] - this.currentGains[i]) * alpha;
-      this.gains[i].gain.value = this.currentGains[i];
+    for (let index = 0; index < 4; index++) {
+      this.currentGains[index] += (this.targetGains[index] - this.currentGains[index]) * alpha;
+      this.gains[index].gain.value = this.currentGains[index];
     }
     this.currentHP += (this.targetHP - this.currentHP) * alpha;
     this.currentLP += (this.targetLP - this.currentLP) * alpha;
@@ -126,7 +136,7 @@ export class GridEngine {
     this.lp.frequency.value = this.currentLP;
   };
 
-  private logInterp(a: number, b: number, t: number): number {
-    return Math.exp(Math.log(a) * (1 - t) + Math.log(b) * t);
+  private logInterp(from: number, to: number, progress: number): number {
+    return Math.exp(Math.log(from) * (1 - progress) + Math.log(to) * progress);
   }
 }

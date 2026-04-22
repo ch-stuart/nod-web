@@ -28,6 +28,7 @@ Located at ~/Code/sleep-noise-ios. Reference the CLAUDE.md at ~/Code/sleep-noise
 - Leverage modern web platform features
 - All selectors should be single token class selectors, e.g. `.foo { font-weight: bold; }`
 - Use CSS Modules. Split CSS into separate files as needed.
+- Use descriptive variable names — avoid single-character names (e.g. use `width` not `w`, `index` not `i`)
 
 ## Images
 

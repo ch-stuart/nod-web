@@ -7,17 +7,19 @@ const BOTTOM_PAD = 15;
 const TOP_PAD = 34 + 10;
 const DRAG_THRESHOLD_SQ = 6 * 6;
 
-function getBounds(w: number, h: number) {
+function getBounds(width: number, height: number) {
   return {
     minX: EDGE_PAD,
-    maxX: w - DOT_SIZE - EDGE_PAD,
+    maxX: width - DOT_SIZE - EDGE_PAD,
     minY: TOP_PAD,
-    maxY: h - DOT_SIZE - BOTTOM_PAD,
+    maxY: height - DOT_SIZE - BOTTOM_PAD,
   };
 }
 
 export function mount(dot: HTMLElement, container: HTMLElement, initialEvent: PointerEvent, ctx: AudioContext) {
   const engine = new GridEngine(ctx);
+  const audioEl = document.getElementById('audio-output') as HTMLAudioElement;
+  audioEl.srcObject = engine.stream;
   let isPlaying = false;
   let pos = { x: 0.75, y: 0.75 };
   let downClient: { x: number; y: number } | null = null;
@@ -25,56 +27,58 @@ export function mount(dot: HTMLElement, container: HTMLElement, initialEvent: Po
   let downOnDot = false;
 
   function updateDot() {
-    const w = container.clientWidth;
-    const h = container.clientHeight;
-    const { minX, maxX, minY, maxY } = getBounds(w, h);
-    const x = minX + pos.x * (maxX - minX);
-    const y = minY + pos.y * (maxY - minY);
-    dot.style.transform = `translate(${x}px, ${y}px)`;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    const { minX, maxX, minY, maxY } = getBounds(width, height);
+    const dotX = minX + pos.x * (maxX - minX);
+    const dotY = minY + pos.y * (maxY - minY);
+    dot.style.transform = `translate(${dotX}px, ${dotY}px)`;
   }
 
   function normalize(clientX: number, clientY: number) {
-    const r = container.getBoundingClientRect();
-    const { minX, maxX, minY, maxY } = getBounds(r.width, r.height);
-    const px = Math.max(minX, Math.min(maxX, clientX - r.left - DOT_SIZE / 2));
-    const py = Math.max(minY, Math.min(maxY, clientY - r.top - DOT_SIZE / 2));
+    const rect = container.getBoundingClientRect();
+    const { minX, maxX, minY, maxY } = getBounds(rect.width, rect.height);
+    const clampedX = Math.max(minX, Math.min(maxX, clientX - rect.left - DOT_SIZE / 2));
+    const clampedY = Math.max(minY, Math.min(maxY, clientY - rect.top - DOT_SIZE / 2));
     return {
-      x: (px - minX) / (maxX - minX),
-      y: (py - minY) / (maxY - minY),
+      x: (clampedX - minX) / (maxX - minX),
+      y: (clampedY - minY) / (maxY - minY),
     };
   }
 
   function togglePlay() {
     if (isPlaying) {
       engine.stop();
+      audioEl.pause();
       isPlaying = false;
     } else {
       engine.start(pos.x, pos.y);
+      audioEl.play().catch(() => {});
       isPlaying = true;
     }
     dot.classList.toggle('playing', isPlaying);
     container.setAttribute('aria-pressed', String(isPlaying));
   }
 
-  container.addEventListener('pointerdown', (e) => {
-    e.preventDefault();
-    container.setPointerCapture(e.pointerId);
-    downClient = { x: e.clientX, y: e.clientY };
+  container.addEventListener('pointerdown', (event) => {
+    event.preventDefault();
+    container.setPointerCapture(event.pointerId);
+    downClient = { x: event.clientX, y: event.clientY };
     isDragging = false;
-    const r = dot.getBoundingClientRect();
+    const dotRect = dot.getBoundingClientRect();
     const pad = 12;
     downOnDot =
-      e.clientX >= r.left - pad && e.clientX <= r.right + pad &&
-      e.clientY >= r.top - pad && e.clientY <= r.bottom + pad;
+      event.clientX >= dotRect.left - pad && event.clientX <= dotRect.right + pad &&
+      event.clientY >= dotRect.top - pad && event.clientY <= dotRect.bottom + pad;
   });
 
-  container.addEventListener('pointermove', (e) => {
+  container.addEventListener('pointermove', (event) => {
     if (!downClient || !downOnDot) return;
-    const dx = e.clientX - downClient.x;
-    const dy = e.clientY - downClient.y;
-    if (!isDragging && dx * dx + dy * dy < DRAG_THRESHOLD_SQ) return;
+    const deltaX = event.clientX - downClient.x;
+    const deltaY = event.clientY - downClient.y;
+    if (!isDragging && deltaX * deltaX + deltaY * deltaY < DRAG_THRESHOLD_SQ) return;
     isDragging = true;
-    pos = normalize(e.clientX, e.clientY);
+    pos = normalize(event.clientX, event.clientY);
     updateDot();
     if (isPlaying) engine.setPosition(pos.x, pos.y);
   });
@@ -93,9 +97,9 @@ export function mount(dot: HTMLElement, container: HTMLElement, initialEvent: Po
     downOnDot = false;
   });
 
-  container.addEventListener('keydown', (e) => {
-    if (e.key === ' ' || e.key === 'Enter') {
-      e.preventDefault();
+  container.addEventListener('keydown', (event) => {
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.preventDefault();
       togglePlay();
     }
   });

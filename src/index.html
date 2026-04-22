@@ -12,36 +12,63 @@
     <link rel="icon" type="image/webp" href="./images/app-icon/icon.webp" />
     <link rel="icon" type="image/png" href="./images/app-icon/icon.png" />
     <link rel="stylesheet" href="./style.css" />
+    <link rel="modulepreload" href="./grid-player.ts" />
+    <!-- LTeX: enabled=false -->
     <script type="module">
       const container = document.getElementById("grid-player");
       const dot = document.getElementById("grid-dot");
 
       // Position dot at default (0.75, 0.75) matching iOS app default
       requestAnimationFrame(() => {
-        const w = container.clientWidth,
-          h = container.clientHeight;
-        const minX = 5,
-          maxX = w - 45,
-          minY = 44,
-          maxY = h - 55;
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        const minX = 5;
+        const maxX = width - 45;
+        const minY = 44;
+        const maxY = height - 55;
         dot.style.transform = `translate(${minX + 0.75 * (maxX - minX)}px, ${minY + 0.75 * (maxY - minY)}px)`;
       });
 
       // Load audio engine on first interaction.
       // AudioContext must be created and resumed synchronously within the user
       // gesture — iOS Safari blocks audio if creation happens after an await.
+      //
+      // touchstart is used to unlock the AudioContext because on real iOS devices
+      // pointerdown alone may not be recognized as a user-activation gesture.
+      // The subsequent pointerdown (which fires after touchstart on the same touch)
+      // is used to load and mount the audio engine so it receives a PointerEvent.
+      let audioContext = null;
+
+      container.addEventListener(
+        "touchstart",
+        function unlockAudio() {
+          container.removeEventListener("touchstart", unlockAudio);
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          audioContext = new AudioCtx();
+          audioContext.resume();
+        },
+        { passive: true, once: true },
+      );
+
       container.addEventListener("pointerdown", function handleFirst(e) {
         container.removeEventListener("pointerdown", handleFirst);
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        const audioContext = new AudioCtx();
-        audioContext.resume();
+        if (!audioContext) {
+          audioContext = new AudioCtx();
+          audioContext.resume();
+        }
         import("./grid-player.ts").then(({ mount }) =>
           mount(dot, container, e, audioContext),
         );
       });
     </script>
+    <!-- LTeX: enabled=true -->
   </head>
   <body>
+    <!-- srcObject is set to the WebAudio MediaStream at play time; routing output
+         through an <audio> element promotes the iOS session to "playback" category,
+         bypassing the ringer/mute switch. -->
+    <audio id="audio-output" aria-hidden="true"></audio>
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header>
