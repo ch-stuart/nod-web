@@ -5,12 +5,18 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lighthouse": "node scripts/lighthouse.mjs"
+    "lighthouse": "node scripts/lighthouse.mjs",
+    "lint": "oxlint src/",
+    "lint:fix": "oxlint --fix src/",
+    "fmt": "oxfmt src/",
+    "fmt:check": "oxfmt --check src/"
   },
   "packageManager": "pnpm@10.29.2",
   "devDependencies": {
     "chrome-launcher": "^1.1.2",
     "lighthouse": "^12.0.0",
+    "oxfmt": "^0.46.0",
+    "oxlint": "^1.61.0",
     "sharp": "^0.34.5",
     "vite": "^8.0.9"
   }

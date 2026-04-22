@@ -45,3 +45,7 @@ The Vite build plugin processes master source images into AVIF, WebP, and palett
 - Display screenshot in src/images/screenshots
 - Base the visual design on the visual design of the iOS app
 - Give a summary of the app and include a call to action to install the app
+
+## Source Control Requirements
+
+- Always use Commitizen formatted commit messages

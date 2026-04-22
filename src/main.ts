@@ -1,11 +1,10 @@
-import playerStyles from './styles/player.module.css';
+import playerStyles from "./styles/player.module.css";
 
-
-const playerSection = document.getElementById('player-section') as HTMLElement;
-const deviceFrame = document.getElementById('device-frame') as HTMLElement;
-const container = document.getElementById('grid-player') as HTMLElement;
-const deviceNotch = document.getElementById('device-notch') as HTMLElement;
-const dot = document.getElementById('grid-dot') as HTMLElement;
+const playerSection = document.getElementById("player-section") as HTMLElement;
+const deviceFrame = document.getElementById("device-frame") as HTMLElement;
+const container = document.getElementById("grid-player") as HTMLElement;
+const deviceNotch = document.getElementById("device-notch") as HTMLElement;
+const dot = document.getElementById("grid-dot") as HTMLElement;
 
 playerSection.classList.add(playerStyles.screenshot);
 deviceFrame.classList.add(playerStyles.deviceFrame);
@@ -34,9 +33,9 @@ requestAnimationFrame(() => {
 let audioContext: AudioContext | null = null;
 
 container.addEventListener(
-  'touchstart',
+  "touchstart",
   function unlockAudio() {
-    container.removeEventListener('touchstart', unlockAudio);
+    container.removeEventListener("touchstart", unlockAudio);
     const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
     audioContext = new AudioCtx();
     audioContext.resume();
@@ -44,14 +43,14 @@ container.addEventListener(
   { passive: true, once: true },
 );
 
-container.addEventListener('pointerdown', function handleFirst(event) {
-  container.removeEventListener('pointerdown', handleFirst);
+container.addEventListener("pointerdown", function handleFirst(event) {
+  container.removeEventListener("pointerdown", handleFirst);
   const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
   if (!audioContext) {
     audioContext = new AudioCtx();
     audioContext.resume();
   }
-  import('./grid-player.ts').then(({ mount }) =>
+  import("./grid-player.ts").then(({ mount }) =>
     mount(dot, container, event, audioContext!, playerStyles.playing),
   );
 });

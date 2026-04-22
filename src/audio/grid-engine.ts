@@ -1,4 +1,4 @@
-import { makeWhite, makeGrey, makePink, makeBrown } from './noise-gen.js';
+import { makeWhite, makeGrey, makePink, makeBrown } from "./noise-gen.js";
 
 // Audio graph:
 // src[0..3] → gains[0..3] ─┐
@@ -34,12 +34,12 @@ export class GridEngine {
     this.gains = Array.from({ length: 4 }, () => this.ctx.createGain());
 
     this.hp = this.ctx.createBiquadFilter();
-    this.hp.type = 'highpass';
+    this.hp.type = "highpass";
     this.hp.frequency.value = 20;
     this.hp.Q.value = 0.707;
 
     this.lp = this.ctx.createBiquadFilter();
-    this.lp.type = 'lowpass';
+    this.lp.type = "lowpass";
     this.lp.frequency.value = 22050;
     this.lp.Q.value = 0.707;
 
@@ -102,7 +102,11 @@ export class GridEngine {
   stop() {
     cancelAnimationFrame(this.rafId);
     for (const source of this.sources) {
-      try { source.stop(); } catch { /* already stopped */ }
+      try {
+        source.stop();
+      } catch {
+        /* already stopped */
+      }
     }
     this.sources = [];
     this.ctx.suspend();
@@ -115,7 +119,8 @@ export class GridEngine {
       this.targetGains[index] = Math.max(0, 1 - Math.abs(yBiased - centers[index]) * 3);
     }
     this.targetHP = normalizedX < 0.2 ? this.logInterp(150, 20, normalizedX / 0.2) : 20;
-    this.targetLP = normalizedX > 0.2 ? this.logInterp(22050, 350, (normalizedX - 0.2) / 0.8) : 22050;
+    this.targetLP =
+      normalizedX > 0.2 ? this.logInterp(22050, 350, (normalizedX - 0.2) / 0.8) : 22050;
   }
 
   private tick = () => {

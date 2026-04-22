@@ -19,7 +19,7 @@
 
 /* Left side: volume up + volume down buttons */
 .deviceFrame::before {
-  content: '';
+  content: "";
   position: absolute;
   left: -3px;
   top: 22%;
@@ -32,7 +32,7 @@
 
 /* Right side: power button */
 .deviceFrame::after {
-  content: '';
+  content: "";
   position: absolute;
   right: -3px;
   top: 22%;
@@ -54,23 +54,23 @@
   user-select: none;
   isolation: isolate;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.52), rgba(0, 0, 0, 0.60)),
+    linear-gradient(to right, rgba(255, 255, 255, 0.52), rgba(0, 0, 0, 0.6)),
     linear-gradient(
       to bottom,
       rgb(224, 230, 235) 0%,
       rgb(140, 171, 194) 27%,
       rgb(171, 133, 173) 56%,
-      rgb(196, 117, 99)  82%,
-      rgb(77,  54,  46)  100%
+      rgb(196, 117, 99) 82%,
+      rgb(77, 54, 46) 100%
     );
   background-blend-mode: multiply;
 }
 
 .gridPlayer::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: url('../images/noise.png') repeat;
+  background: url("../images/noise.png") repeat;
   background-size: 200px;
   opacity: 0.04;
   pointer-events: none;

@@ -1,4 +1,4 @@
-import { GridEngine } from './audio/grid-engine.js';
+import { GridEngine } from "./audio/grid-engine.js";
 
 const DOT_SIZE = 35;
 const EDGE_PAD = 5;
@@ -16,9 +16,15 @@ function getBounds(width: number, height: number) {
   };
 }
 
-export function mount(dot: HTMLElement, container: HTMLElement, initialEvent: PointerEvent, ctx: AudioContext, playingClass: string) {
+export function mount(
+  dot: HTMLElement,
+  container: HTMLElement,
+  initialEvent: PointerEvent,
+  ctx: AudioContext,
+  playingClass: string,
+) {
   const engine = new GridEngine(ctx);
-  const audioEl = document.getElementById('audio-output') as HTMLAudioElement;
+  const audioEl = document.getElementById("audio-output") as HTMLAudioElement;
   audioEl.srcObject = engine.stream;
   let isPlaying = false;
   let pos = { x: 0.75, y: 0.75 };
@@ -57,10 +63,10 @@ export function mount(dot: HTMLElement, container: HTMLElement, initialEvent: Po
       isPlaying = true;
     }
     dot.classList.toggle(playingClass, isPlaying);
-    container.setAttribute('aria-pressed', String(isPlaying));
+    container.setAttribute("aria-pressed", String(isPlaying));
   }
 
-  container.addEventListener('pointerdown', (event) => {
+  container.addEventListener("pointerdown", (event) => {
     event.preventDefault();
     container.setPointerCapture(event.pointerId);
     downClient = { x: event.clientX, y: event.clientY };
@@ -68,11 +74,13 @@ export function mount(dot: HTMLElement, container: HTMLElement, initialEvent: Po
     const dotRect = dot.getBoundingClientRect();
     const pad = 12;
     downOnDot =
-      event.clientX >= dotRect.left - pad && event.clientX <= dotRect.right + pad &&
-      event.clientY >= dotRect.top - pad && event.clientY <= dotRect.bottom + pad;
+      event.clientX >= dotRect.left - pad &&
+      event.clientX <= dotRect.right + pad &&
+      event.clientY >= dotRect.top - pad &&
+      event.clientY <= dotRect.bottom + pad;
   });
 
-  container.addEventListener('pointermove', (event) => {
+  container.addEventListener("pointermove", (event) => {
     if (!downClient || !downOnDot) return;
     const deltaX = event.clientX - downClient.x;
     const deltaY = event.clientY - downClient.y;
@@ -83,7 +91,7 @@ export function mount(dot: HTMLElement, container: HTMLElement, initialEvent: Po
     if (isPlaying) engine.setPosition(pos.x, pos.y);
   });
 
-  container.addEventListener('pointerup', () => {
+  container.addEventListener("pointerup", () => {
     if (!downClient) return;
     downClient = null;
     if (!isDragging) togglePlay();
@@ -91,20 +99,20 @@ export function mount(dot: HTMLElement, container: HTMLElement, initialEvent: Po
     downOnDot = false;
   });
 
-  container.addEventListener('pointercancel', () => {
+  container.addEventListener("pointercancel", () => {
     downClient = null;
     isDragging = false;
     downOnDot = false;
   });
 
-  container.addEventListener('keydown', (event) => {
-    if (event.key === ' ' || event.key === 'Enter') {
+  container.addEventListener("keydown", (event) => {
+    if (event.key === " " || event.key === "Enter") {
       event.preventDefault();
       togglePlay();
     }
   });
 
-  window.addEventListener('resize', updateDot);
+  window.addEventListener("resize", updateDot);
 
   downClient = { x: initialEvent.clientX, y: initialEvent.clientY };
   updateDot();
