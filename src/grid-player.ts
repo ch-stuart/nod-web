@@ -16,7 +16,7 @@ function getBounds(width: number, height: number) {
   };
 }
 
-export function mount(dot: HTMLElement, container: HTMLElement, initialEvent: PointerEvent, ctx: AudioContext) {
+export function mount(dot: HTMLElement, container: HTMLElement, initialEvent: PointerEvent, ctx: AudioContext, playingClass: string) {
   const engine = new GridEngine(ctx);
   const audioEl = document.getElementById('audio-output') as HTMLAudioElement;
   audioEl.srcObject = engine.stream;
@@ -56,7 +56,7 @@ export function mount(dot: HTMLElement, container: HTMLElement, initialEvent: Po
       audioEl.play().catch(() => {});
       isPlaying = true;
     }
-    dot.classList.toggle('playing', isPlaying);
+    dot.classList.toggle(playingClass, isPlaying);
     container.setAttribute('aria-pressed', String(isPlaying));
   }
 

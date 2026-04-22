@@ -11,7 +11,7 @@
     <link rel="icon" type="image/avif" href="./images/app-icon/icon.avif" />
     <link rel="icon" type="image/webp" href="./images/app-icon/icon.webp" />
     <link rel="icon" type="image/png" href="./images/app-icon/icon.png" />
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./main.css" />
     <!-- LTeX: enabled=false -->
     <script type="module" src="./main.ts"></script>
     <!-- LTeX: enabled=true -->
@@ -23,7 +23,7 @@
     <audio id="audio-output" aria-hidden="true"></audio>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <header>
+    <header class="site-header">
       <div class="brand">
         <picture>
           <source srcset="./images/app-icon/icon.avif" type="image/avif" />
@@ -40,9 +40,9 @@
       </div>
     </header>
 
-    <main id="main">
+    <main id="main" class="site-main">
       <section class="hero">
-        <h1>Sleep noise, nothing else.</h1>
+        <h1 class="heading">Sleep noise, nothing else.</h1>
         <p class="hero-sub">
           Nod gives you a continuous range of noise — from bright and airy to
           warm and dark. Find the sound that helps you sleep, then let it run
@@ -50,18 +50,17 @@
         </p>
       </section>
 
-      <section class="screenshot" aria-label="Interactive noise player">
-        <div class="device-frame">
+      <section id="player-section" aria-label="Interactive noise player">
+        <div id="device-frame">
           <div
-            class="grid-player"
             id="grid-player"
             role="button"
             aria-pressed="false"
             aria-label="Nod noise player — tap to play, drag to explore"
             tabindex="0"
           >
-            <div class="device-notch" aria-hidden="true"></div>
-            <div class="grid-dot" id="grid-dot"></div>
+            <div id="device-notch" aria-hidden="true"></div>
+            <div id="grid-dot"></div>
           </div>
         </div>
       </section>
@@ -72,6 +71,7 @@
           onclick="document.getElementById('coming-soon-dialog').showModal()"
         >
           <img
+            class="app-store-badge"
             src="./images/download-on-app-store/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
             alt="Download on the App Store"
             width="165"
@@ -81,15 +81,21 @@
       </section>
     </main>
 
-    <dialog id="coming-soon-dialog" aria-labelledby="dialog-title">
-      <p id="dialog-title">Coming soon to the App Store :)</p>
-      <form method="dialog">
-        <button autofocus>Got it</button>
+    <dialog
+      id="coming-soon-dialog"
+      class="dialog"
+      aria-labelledby="dialog-title"
+    >
+      <p id="dialog-title" class="dialog-message">
+        Coming soon to the App Store :)
+      </p>
+      <form method="dialog" class="dialog-form">
+        <button class="dialog-close" autofocus>Got it</button>
       </form>
     </dialog>
 
-    <footer>
-      <p>&copy; 2026 Charles Stuart</p>
+    <footer class="site-footer">
+      <p class="footer-text">&copy; 2026 Charles Stuart</p>
     </footer>
   </body>
 </html>

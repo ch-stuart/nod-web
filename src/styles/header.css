@@ -1,0 +1,25 @@
+.site-header {
+  width: 100%;
+  max-width: var(--width-content);
+  margin-block-end: var(--space-xl);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.app-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  display: block;
+}
+
+.wordmark {
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+}

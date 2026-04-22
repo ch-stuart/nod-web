@@ -1,0 +1,46 @@
+.dialog {
+  background: color-mix(in srgb, var(--color-bg) 90%, var(--color-text));
+  color: var(--color-text);
+  border: 1px solid color-mix(in srgb, var(--color-text) 20%, transparent);
+  border-radius: 12px;
+  padding: var(--space-md);
+  max-width: 320px;
+  width: calc(100% - var(--space-md));
+  font-family: var(--font-sans);
+  position: fixed;
+  inset: 0;
+  margin: auto;
+}
+
+.dialog::backdrop {
+  background: color-mix(in srgb, var(--color-bg) 75%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+.dialog-message {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-block-end: var(--space-md);
+}
+
+.dialog-form {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dialog-close {
+  background: none;
+  cursor: pointer;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border: 1px solid color-mix(in srgb, var(--color-text) 30%, transparent);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: border-color 0.15s ease;
+}
+
+.dialog-close:hover {
+  border-color: color-mix(in srgb, var(--color-text) 60%, transparent);
+}
