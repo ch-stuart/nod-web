@@ -31,6 +31,7 @@ export function mount(
   let downClient: { x: number; y: number } | null = null;
   let isDragging = false;
   let downOnDot = false;
+  let dragTracked = false;
 
   function updateDot() {
     const width = container.clientWidth;
@@ -57,10 +58,12 @@ export function mount(
       engine.stop();
       audioEl.pause();
       isPlaying = false;
+      window.umami?.track("noise-stop");
     } else {
       engine.start(pos.x, pos.y);
       audioEl.play().catch(() => {});
       isPlaying = true;
+      window.umami?.track("noise-play");
     }
     dot.classList.toggle(playingClass, isPlaying);
     container.setAttribute("aria-pressed", String(isPlaying));
@@ -71,6 +74,7 @@ export function mount(
     container.setPointerCapture(event.pointerId);
     downClient = { x: event.clientX, y: event.clientY };
     isDragging = false;
+    dragTracked = false;
     const dotRect = dot.getBoundingClientRect();
     const pad = 12;
     downOnDot =
@@ -85,6 +89,10 @@ export function mount(
     const deltaX = event.clientX - downClient.x;
     const deltaY = event.clientY - downClient.y;
     if (!isDragging && deltaX * deltaX + deltaY * deltaY < DRAG_THRESHOLD_SQ) return;
+    if (!dragTracked) {
+      dragTracked = true;
+      window.umami?.track("noise-drag");
+    }
     isDragging = true;
     pos = normalize(event.clientX, event.clientY);
     updateDot();

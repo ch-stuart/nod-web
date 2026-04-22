@@ -13,6 +13,11 @@
     <link rel="icon" type="image/png" href="./images/app-icon/icon.png" />
     <link rel="stylesheet" href="./main.css" />
     <script type="module" src="./main.ts"></script>
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="f63cf65f-da2f-48b4-a62d-eaf1ba0faa46"
+    ></script>
   </head>
   <body>
     <!-- srcObject is set to the WebAudio MediaStream at play time; routing output
@@ -66,7 +71,7 @@
       <section class="cta">
         <button
           class="app-store-link"
-          onclick="document.getElementById('coming-soon-dialog').showModal()"
+          onclick="document.getElementById('coming-soon-dialog').showModal(); window.umami?.track('cta-tap')"
         >
           <img
             class="app-store-badge"
