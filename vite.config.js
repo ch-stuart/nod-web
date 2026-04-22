@@ -31,7 +31,9 @@ function inlineCssPlugin() {
     generateBundle(_, bundle) {
       for (const [fileName, chunk] of Object.entries(bundle)) {
         if (fileName.endsWith('.css') && chunk.type === 'asset') {
-          css = chunk.source
+          // CSS lives in assets/ but is inlined into index.html at root,
+          // so url(./foo) must become url(./assets/foo)
+          css = String(chunk.source).replace(/url\((['"]?)\.\//g, 'url($1./assets/')
           delete bundle[fileName]
         }
       }

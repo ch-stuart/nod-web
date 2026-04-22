@@ -70,9 +70,9 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: url("../images/noise.png") repeat;
+  background: url("../images/noise/white256.png") repeat;
   background-size: 200px;
-  opacity: 0.04;
+  opacity: 0.02;
   pointer-events: none;
   z-index: 0;
 }
