@@ -17,18 +17,18 @@
   backdrop-filter: blur(4px);
 }
 
-.dialog-message {
+.dialogMessage {
   font-size: 1rem;
   font-weight: 500;
   margin-block-end: var(--space-md);
 }
 
-.dialog-form {
+.dialogForm {
   display: flex;
   justify-content: flex-end;
 }
 
-.dialog-close {
+.dialogClose {
   background: none;
   cursor: pointer;
   color: var(--color-text);
@@ -41,6 +41,6 @@
   transition: border-color 0.15s ease;
 }
 
-.dialog-close:hover {
+.dialogClose:hover {
   border-color: color-mix(in srgb, var(--color-text) 60%, transparent);
 }

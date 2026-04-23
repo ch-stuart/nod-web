@@ -2,7 +2,7 @@
   padding-block-end: var(--space-md);
 }
 
-.app-store-link {
+.appStoreLink {
   display: inline-block;
   background: none;
   border: none;
@@ -11,7 +11,7 @@
   line-height: 0;
 }
 
-.app-store-badge {
+.appStoreBadge {
   display: block;
   height: 40px;
   width: auto;

@@ -1,4 +1,4 @@
-.site-main {
+.siteMain {
   width: 100%;
   max-width: var(--width-content);
   flex: 1;
@@ -21,7 +21,7 @@
   color: var(--color-text);
 }
 
-.hero-sub {
+.heroSub {
   font-size: 1.125rem;
   color: var(--color-muted);
   font-weight: 400;

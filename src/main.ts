@@ -1,16 +1,5 @@
-import playerStyles from "./styles/player.module.css";
-
-const playerSection = document.getElementById("player-section") as HTMLElement;
-const deviceFrame = document.getElementById("device-frame") as HTMLElement;
 const container = document.getElementById("grid-player") as HTMLElement;
-const deviceNotch = document.getElementById("device-notch") as HTMLElement;
 const dot = document.getElementById("grid-dot") as HTMLElement;
-
-playerSection.classList.add(playerStyles.screenshot);
-deviceFrame.classList.add(playerStyles.deviceFrame);
-container.classList.add(playerStyles.gridPlayer);
-deviceNotch.classList.add(playerStyles.deviceNotch);
-dot.classList.add(playerStyles.gridDot);
 
 requestAnimationFrame(() => {
   const width = container.clientWidth;
@@ -51,6 +40,6 @@ container.addEventListener("pointerdown", function handleFirst(event) {
     audioContext.resume();
   }
   import("./grid-player.ts").then(({ mount }) =>
-    mount(dot, container, event, audioContext!, playerStyles.playing),
+    mount(dot, container, event, audioContext!, "playing"),
   );
 });

@@ -1,4 +1,4 @@
-.site-header {
+.siteHeader {
   width: 100%;
   max-width: var(--width-content);
   margin-block-end: var(--space-xl);
@@ -10,7 +10,7 @@
   gap: var(--space-xs);
 }
 
-.app-icon {
+.appIcon {
   width: 32px;
   height: 32px;
   border-radius: 7px;
